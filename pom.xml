@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mt</groupId>
-	<artifactId>mootruyen</artifactId>
+	<artifactId>moontruyen</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mootruyen</name>
+	<name>moontruyen</name>
 	<description>RestFulAPI MoonTruyen</description>
 	<url/>
 	<licenses>
