@@ -8,6 +8,7 @@ import com.mt.moontruyen.enums.Role;
 import com.mt.moontruyen.exception.AppException;
 import com.mt.moontruyen.exception.ErrorCode;
 import com.mt.moontruyen.mapper.UserMapper;
+import com.mt.moontruyen.repository.RoleRepository;
 import com.mt.moontruyen.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,10 @@ public class UserService {
 
     PasswordEncoder passwordEncoder;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    RoleRepository roleRepository;
+
+    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('READ_DATA')")
     public List<UserResponse> getAllUsers() {
         log.info("In method getAllUsers");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
@@ -73,9 +77,14 @@ public class UserService {
 
     public UserResponse updateUser(String userId ,UserUpdatingRequest request){
         User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        userMapper.toUpdateUser(request, user);
+
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUpdatedAt(LocalDateTime.now());
-        userMapper.toUpdateUser(request, user);
+
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 

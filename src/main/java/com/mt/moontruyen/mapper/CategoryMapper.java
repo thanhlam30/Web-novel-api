@@ -11,5 +11,5 @@ import org.mapstruct.MappingTarget;
 public interface CategoryMapper {
     Category toCategory(CategoryCreationRequest request);
 
-    Category toUpdateCategory(CategoryUdatingRequest request, @MappingTarget Category category);
+    void toUpdateCategory(CategoryUdatingRequest request, @MappingTarget Category category);
 }
