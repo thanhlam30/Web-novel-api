@@ -2,6 +2,7 @@ package com.mt.moontruyen.controller;
 
 import com.mt.moontruyen.dto.request.AuthenticationRequest;
 import com.mt.moontruyen.dto.request.IntrospectRequest;
+import com.mt.moontruyen.dto.request.LogoutRequest;
 import com.mt.moontruyen.dto.response.ApiResponse;
 import com.mt.moontruyen.dto.response.AuthenticationResponse;
 import com.mt.moontruyen.dto.response.IntrospectResponse;
@@ -38,6 +39,13 @@ public class AuthenticationController {
         var result = authenticationService.introspect(request);
         return ApiResponse.<IntrospectResponse>builder()
                 .result(result)
+                .build();
+    }
+
+    @PostMapping("/logout")
+    ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+        authenticationService.logout(request);
+        return ApiResponse.<Void>builder()
                 .build();
     }
 }
