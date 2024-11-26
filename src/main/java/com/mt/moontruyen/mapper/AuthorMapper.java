@@ -10,5 +10,5 @@ import org.mapstruct.MappingTarget;
 public interface AuthorMapper {
     Author toAuthor(AuthorCreationRequest request);
 
-    Author toUpdateAuthor(AuthorUpdateRequest request, @MappingTarget Author author);
+    void toUpdateAuthor(AuthorUpdateRequest request, @MappingTarget Author author);
 }
