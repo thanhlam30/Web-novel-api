@@ -1,10 +1,11 @@
 package com.mt.moontruyen.service;
 
+import com.mt.moontruyen.constant.PredefinedRole;
 import com.mt.moontruyen.dto.request.UserCreationRequest;
 import com.mt.moontruyen.dto.request.UserUpdatingRequest;
 import com.mt.moontruyen.dto.response.UserResponse;
 import com.mt.moontruyen.entity.User;
-import com.mt.moontruyen.enums.Role;
+import com.mt.moontruyen.entity.Role;
 import com.mt.moontruyen.exception.AppException;
 import com.mt.moontruyen.exception.ErrorCode;
 import com.mt.moontruyen.mapper.UserMapper;
@@ -37,8 +38,7 @@ public class UserService {
 
     RoleRepository roleRepository;
 
-    //@PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAllUsers() {
         log.info("In method getAllUsers");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
@@ -51,6 +51,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
+    @PostAuthorize("returnObject.username == authentication.name")
     public UserResponse createUser(UserCreationRequest request){
         if(userRepository.existsByUsername(request.getUsername())){
             throw new AppException(ErrorCode.USERNAME_EXISTED);
@@ -59,10 +60,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
 
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Role.USER.name());
+        HashSet<Role> roles = new HashSet<>();
+        roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
 
-//        user.setRoles(roles);
+        user.setRoles(roles);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
@@ -88,6 +89,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
+    @PreAuthorize(("hasRole('ADMIN')"))
     public void deleteUser(String userId) {
         userRepository.deleteById(userId);
     }

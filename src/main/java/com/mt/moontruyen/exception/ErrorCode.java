@@ -19,6 +19,7 @@ public enum ErrorCode {
     USERNAME_EXISTED(409,"Username already existed", HttpStatus.CONFLICT),
     UNAUTHENTICATED(401,"Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(403, "You do not have permission", HttpStatus.FORBIDDEN),
+    INVALID_KEY(400, "Invalid key", HttpStatus.BAD_REQUEST),
     ;
     ErrorCode(int code, String message, HttpStatusCode statusCode){
         this.code = code;
