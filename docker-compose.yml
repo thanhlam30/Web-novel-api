@@ -1,0 +1,28 @@
+# Use this line if your Docker Compose version is below 2.x
+# version: '3.8'
+
+services:
+  db:
+    image: mysql:9.1
+    container_name: mysql-9.1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: moontruyen
+      MYSQL_DATABASE: moontruyen
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_network
+
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  my_network:
+    driver: bridge
+
