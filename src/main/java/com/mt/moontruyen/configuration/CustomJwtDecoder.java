@@ -33,12 +33,11 @@ public class CustomJwtDecoder implements JwtDecoder {
                     .token(token)
                     .build());
             if(!response.isValid()){
-                throw new JwtException("Token is invalid");
+                throw new JwtException("Token invalid");
             }
         }catch (JOSEException | ParseException e){
             throw new JwtException(e.getMessage());
         }
-
         if(Objects.isNull(nimbusJwtDecoder)){
             SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
             nimbusJwtDecoder = NimbusJwtDecoder
@@ -46,9 +45,6 @@ public class CustomJwtDecoder implements JwtDecoder {
                     .macAlgorithm(MacAlgorithm.HS512)
                     .build();
         }
-
-        System.out.println(nimbusJwtDecoder);
-
         return nimbusJwtDecoder.decode(token);
     }
 }
