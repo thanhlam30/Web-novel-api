@@ -38,10 +38,8 @@ public class UserService {
 
     RoleRepository roleRepository;
 
-    //@PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAllUsers() {
-        log.info("In method getAllUsers");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
 
     }
