@@ -10,7 +10,6 @@ import com.mt.moontruyen.entity.InvalidatedToken;
 import com.mt.moontruyen.entity.User;
 import com.mt.moontruyen.exception.AppException;
 import com.mt.moontruyen.exception.ErrorCode;
-import com.mt.moontruyen.mapper.RoleMapper;
 import com.mt.moontruyen.repository.InvalidatedTokenRepository;
 import com.mt.moontruyen.repository.UserRepository;
 import com.nimbusds.jose.*;
@@ -35,7 +34,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -44,8 +42,6 @@ import java.util.stream.Collectors;
 public class AuthenticationService {
 
     UserRepository userRepository;
-
-    PasswordEncoder passwordEncoder;
 
     InvalidatedTokenRepository invalidatedTokenRepository;
 
@@ -77,6 +73,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         boolean authentiacted = passwordEncoder.matches(request.getPassword(), user.getPassword());
