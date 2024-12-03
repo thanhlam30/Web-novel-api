@@ -4,6 +4,7 @@ import com.mt.moontruyen.dto.response.ApiResponse;
 import com.mt.moontruyen.dto.request.StoryCreationRequest;
 import com.mt.moontruyen.dto.request.StoryUpdateRequest;
 import com.mt.moontruyen.dto.response.PageResponse;
+import com.mt.moontruyen.dto.response.StoryResponse;
 import com.mt.moontruyen.entity.Story;
 import com.mt.moontruyen.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,10 @@ public class StoryController {
     private StoryService storyService;
 
     @GetMapping
-    ApiResponse<PageResponse<Story>> getAllStories(
+    ApiResponse<PageResponse<StoryResponse>> getAllStories(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
-        return ApiResponse.<PageResponse<Story>>builder()
+        return ApiResponse.<PageResponse<StoryResponse>>builder()
                 .result(storyService.getAllStories(page,size))
                 .build();
     }

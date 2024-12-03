@@ -17,6 +17,7 @@ public enum ErrorCode {
     CHAPTER_EXISTED(409,"Chapter already existed", HttpStatus.CONFLICT),
     USER_NOT_FOUND(404,"User not found", HttpStatus.NOT_FOUND),
     USERNAME_EXISTED(409,"Username already existed", HttpStatus.CONFLICT),
+    COMMENT_NOT_FOUND(404,"Comment not found", HttpStatus.NOT_FOUND),
     UNAUTHENTICATED(401,"Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(403, "You do not have permission", HttpStatus.FORBIDDEN),
     INVALID_KEY(400, "Invalid key", HttpStatus.BAD_REQUEST),

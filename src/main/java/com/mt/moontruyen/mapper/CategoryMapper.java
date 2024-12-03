@@ -2,7 +2,7 @@ package com.mt.moontruyen.mapper;
 
 
 import com.mt.moontruyen.dto.request.CategoryCreationRequest;
-import com.mt.moontruyen.dto.request.CategoryUdatingRequest;
+import com.mt.moontruyen.dto.request.CategoryUpdatingRequest;
 import com.mt.moontruyen.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -11,5 +11,5 @@ import org.mapstruct.MappingTarget;
 public interface CategoryMapper {
     Category toCategory(CategoryCreationRequest request);
 
-    void toUpdateCategory(CategoryUdatingRequest request, @MappingTarget Category category);
+    void toUpdateCategory(CategoryUpdatingRequest request, @MappingTarget Category category);
 }

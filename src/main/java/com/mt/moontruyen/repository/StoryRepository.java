@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface StoryRepository extends JpaRepository<Story, String> {
+    boolean existsById(String id);
     boolean existsByTitle(String title);
     boolean existsBySlug(String slug);
     Optional<Story> findBySlug(String slug);

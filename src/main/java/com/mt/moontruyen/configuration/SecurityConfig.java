@@ -24,10 +24,9 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final String[] PUBLIC_ENDPOINTS = {"/users", "/auth/token", "/auth/introspect", "/auth/logout","/auth/refresh" };
-
-    @Value("${jwt.signerKey}")
-    private String signerKey;
+    private final String[] PUBLIC_GET_ENDPOINTS = {"/chapters/**", "/stories/**", "/authors/**", "/categories/**","/comments/**"};
+    private final String[] PUBLIC_POST_ENDPOINTS = {"/users", "/auth/token", "/auth/introspect", "/auth/logout","/auth/refresh","/stories","/comments","/chapters/**","/authors","/categories" };
+    private final String[] PUBLIC_PUT_ENDPOINTS = {"/categories/**"};//Add only development purpose
 
     @Autowired
     private CustomJwtDecoder customJwtDecoder;
@@ -36,7 +35,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(Customizer.withDefaults());
         httpSecurity.authorizeHttpRequests(request ->
-                request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                request.requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.PUT, PUBLIC_PUT_ENDPOINTS).permitAll()
                         .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
