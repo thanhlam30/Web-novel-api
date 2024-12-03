@@ -3,7 +3,7 @@ package com.mt.moontruyen.controller;
 
 import com.mt.moontruyen.dto.response.ApiResponse;
 import com.mt.moontruyen.dto.request.CategoryCreationRequest;
-import com.mt.moontruyen.dto.request.CategoryUdatingRequest;
+import com.mt.moontruyen.dto.request.CategoryUpdatingRequest;
 import com.mt.moontruyen.entity.Category;
 import com.mt.moontruyen.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class CategoryController {
                 .build();
     }
 
-    @GetMapping("{slug}")
+    @GetMapping("/{slug}")
     ApiResponse<Category> getCategoryBySlug(@PathVariable String slug) {
         return ApiResponse.<Category>builder()
                 .result(categoryService.getCategoryBySlug(slug))
@@ -45,14 +45,14 @@ public class CategoryController {
                 .build();
     }
 
-    @PutMapping("{categoryId}")
-    ApiResponse<Category> updateCategory(@RequestBody CategoryUdatingRequest request, @PathVariable("categoryId") String categoryId) {
+    @PutMapping("/{categoryId}")
+    ApiResponse<Category> updateCategory(@RequestBody CategoryUpdatingRequest request, @PathVariable("categoryId") String categoryId) {
         return ApiResponse.<Category>builder()
                 .result(categoryService.updateCategory(request, categoryId))
                 .build();
     }
 
-    @DeleteMapping("{categoryId}")
+    @DeleteMapping("/{categoryId}")
     ApiResponse<String> deleteCategory(@PathVariable("categoryId") String categoryId) {
         categoryService.deleteCategory(categoryId);
         return ApiResponse.<String>builder()

@@ -2,6 +2,7 @@ package com.mt.moontruyen.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mt.moontruyen.utils.SlugUntils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,4 +30,10 @@ public class Category {
     @JsonIgnore
     private List<Story> stories;
     private String slug;
+
+    @PrePersist
+    @PreUpdate
+    private void generateSlug(){
+        this.slug = SlugUntils.generateSlugFromName(this.name);
+    }
 }

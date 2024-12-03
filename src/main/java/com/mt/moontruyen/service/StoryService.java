@@ -3,6 +3,7 @@ package com.mt.moontruyen.service;
 import com.mt.moontruyen.dto.request.StoryCreationRequest;
 import com.mt.moontruyen.dto.request.StoryUpdateRequest;
 import com.mt.moontruyen.dto.response.PageResponse;
+import com.mt.moontruyen.dto.response.StoryResponse;
 import com.mt.moontruyen.entity.Author;
 import com.mt.moontruyen.entity.Category;
 import com.mt.moontruyen.entity.Story;
@@ -40,19 +41,22 @@ public class StoryService {
     @Autowired
     private StoryMapper storyMapper;
 
-    public PageResponse<Story> getAllStories(int page, int size){
+    public PageResponse<StoryResponse> getAllStories(int page, int size){
         Sort sort = Sort.by("updatedAt").descending();
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 
         var pageData = storyRepository.findAll(pageable);
 
+        List<StoryResponse> storyResponses = pageData.getContent().stream()
+                .map(storyMapper::toStoryResponse)
+                .toList();
 
-        return PageResponse.<Story>builder()
+        return PageResponse.<StoryResponse>builder()
                 .currentPage(page)
                 .pageSize(pageData.getSize())
                 .totalPages(pageData.getTotalPages())
                 .totalElements(pageData.getTotalElements())
-                .data(pageData.getContent())
+                .data(storyResponses)
                 .build();
     }
 

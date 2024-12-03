@@ -24,22 +24,22 @@ import java.util.HashSet;
 @Slf4j
 public class ApplicationInitConfig {
 
+    PasswordEncoder passwordEncoder;
+
     @NonFinal
     static final String ADMIN_USER_NAME = "admin";
 
     @NonFinal
     static final String ADMIN_PASSWORD = "admin";
-    PasswordEncoder passwordEncoder;
 
-    RoleRepository roleRepository;
 
     @Bean
     @ConditionalOnProperty(
             prefix = "spring",
-            value = "datasource.driver-class-name",
+            value = "datasource.driverClassName",
             havingValue = "com.mysql.jdbc.Driver"
     )
-    ApplicationRunner applicationRunner(UserRepository userRepository) {
+    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository) {
         return args -> {
             if (userRepository.findByUsername(ADMIN_USER_NAME).isEmpty()) {
                 roleRepository.save(Role.builder()

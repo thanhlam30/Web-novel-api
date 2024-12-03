@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryCreationRequest {
-    private String name;
-    private String description;
+public class CommentChapterCreationRequest {
+    private String content;
+    private String chapterId;
+    private String parentCommentId;
 }

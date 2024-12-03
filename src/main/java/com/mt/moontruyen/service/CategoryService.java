@@ -2,7 +2,7 @@ package com.mt.moontruyen.service;
 
 
 import com.mt.moontruyen.dto.request.CategoryCreationRequest;
-import com.mt.moontruyen.dto.request.CategoryUdatingRequest;
+import com.mt.moontruyen.dto.request.CategoryUpdatingRequest;
 import com.mt.moontruyen.entity.Category;
 import com.mt.moontruyen.exception.AppException;
 import com.mt.moontruyen.exception.ErrorCode;
@@ -44,7 +44,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category updateCategory(CategoryUdatingRequest request, String categoryId){
+    public Category updateCategory(CategoryUpdatingRequest request, String categoryId){
         Category category = getCategoryById(categoryId);
         categoryMapper.toUpdateCategory(request, category);
         return categoryRepository.save(category);
