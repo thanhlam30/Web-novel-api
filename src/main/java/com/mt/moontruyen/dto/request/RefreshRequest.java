@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class CategoryCreationRequest {
-    private String name;
-    private String description;
+@AllArgsConstructor
+@Builder
+public class RefreshRequest {
+    private String token;
 }

@@ -17,7 +17,7 @@ public class ChapterController {
     @Autowired
     private ChapterService chapterService;
 
-    @GetMapping("/story/{storyId}")
+    @GetMapping("/story/id/{storyId}")
     ApiResponse<List<Chapter>> getAllChaptersByStoryId(@PathVariable String storyId) {
         return ApiResponse.<List<Chapter>>builder()
                 .result(chapterService.getAllChaptersByStoryId(storyId))

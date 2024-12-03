@@ -39,6 +39,6 @@ public class Chapter {
     @PrePersist
     @PreUpdate
     private void generateSlug(){
-        this.slug = "chuong" + this.chapterNumber;
+        this.slug = "chuong-" + this.chapterNumber;
     }
 }

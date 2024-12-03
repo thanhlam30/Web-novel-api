@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ChapterRepository extends JpaRepository<Chapter, String> {
+    boolean existsById(String chapterId);
     boolean existsByChapterNumber(int chapterNumber);
     Optional<Chapter> findByChapterNumber(int chapterNumber);
     Optional<Chapter> findBySlug(String slug);

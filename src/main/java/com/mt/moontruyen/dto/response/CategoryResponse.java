@@ -1,4 +1,5 @@
-package com.mt.moontruyen.dto.request;
+package com.mt.moontruyen.dto.response;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryUdatingRequest {
+public class CategoryResponse {
     private String id;
     private String name;
-    private String description;
+    private String slug;
 }
