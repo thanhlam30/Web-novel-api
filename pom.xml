@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mt</groupId>
-	<artifactId>moontruyen</artifactId>
+	<artifactId>reading-novel-platform-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>moontruyen</name>
-	<description>RestFulAPI MoonTruyen</description>
+	<name>reading-novel-platform-api</name>
+	<description>RestFulAPI Web Novel Platform</description>
 	<url/>
 	<licenses>
 		<license/>
