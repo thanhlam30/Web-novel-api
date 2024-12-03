@@ -1,14 +1,14 @@
 server:
   port: 8080
   servlet:
-    context-path: /moontruyen/api
+    context-path: /api
 
 spring:
   datasource:
-    url: "jdbc:mysql://localhost:3306/moontruyen"
+    url: "jdbc:mysql://localhost:3306/novelplatformdb"
     driverClassName: "com.mysql.cj.jdbc.Driver"
     username: ${DBMS_USERNAME:root}
-    password: ${DBMS_PASSWORD:moontruyen}
+    password: ${DBMS_PASSWORD:root}
   jpa:
     hibernate:
       ddl-auto: update
